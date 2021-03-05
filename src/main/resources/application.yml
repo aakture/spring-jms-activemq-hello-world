@@ -1,0 +1,9 @@
+activemq:
+  broker-url: tcp://Alpers-MacBook-Pro.local:61616
+  username: admin
+  password: admin
+topic:
+  producer:
+    name: VirtualTopic.prod.Order.TestEvent
+  consumer:
+    name: Consumer.prod.test.VirtualTopic.prod.Order.TestEvent
