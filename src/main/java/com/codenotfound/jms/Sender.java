@@ -7,6 +7,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.jms.Queue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +21,8 @@ public class Sender {
     private JmsTemplate jmsTemplate;
     @Autowired
     private TopicConfig topicConfig;
+    @Autowired
+    private Queue queue;
 
     public void send(String message) {
         try {
@@ -30,6 +33,8 @@ public class Sender {
                 msg.setObject(message);
                 return msg;
             });
+            log.info("sending queue message='{}' on topic {}", message, queue.getQueueName());
+            jmsTemplate.convertAndSend(queue, message);
         } catch (Exception ex) {
             log.error("error", ex);
         }

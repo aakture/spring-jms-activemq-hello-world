@@ -20,10 +20,11 @@ public class Receiver {
     log.info("receive messages on {}", topicConfig.getTopicConsumerName());
   }
 
-  @JmsListener(destination = "#{@topicConfig.getTopicConsumerName()}")
+//  @JmsListener(destination = "#{@topicConfig.getTopicConsumerName()}")
+  @JmsListener(destination = "${topic.consumer.name}")
   public void receive(ActiveMQObjectMessage message) {
     try {
-      log.info("received message='{}'", message.getObject());
+      log.info("received message='{}' on {}", message.getObject(), message.getDestination().getPhysicalName());
     } catch (JMSException e) {
       log.error("error", e);
     }

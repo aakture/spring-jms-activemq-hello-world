@@ -2,6 +2,8 @@ package com.codenotfound.jms;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import javax.jms.Queue;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +41,11 @@ public class SenderConfig {
     connectionFactory.setPassword(brokerPassword);
 
     return connectionFactory;
+  }
+
+  @Bean
+  public Queue queue(){
+    return new ActiveMQQueue("test-queue");
   }
 
   @Bean
